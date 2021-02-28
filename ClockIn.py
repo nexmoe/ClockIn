@@ -59,9 +59,10 @@ def login():
 
     response = session.post(url=url, headers=header, data=data)
     if response.json()['status'] == 1:
-        print('login_success!')
+        print('登录成功')
         flag = 1
     else:
+        print(response.json()['msg'])
         msg = parse.quote_plus(response.json()['msg'])
         Wxpush(msg)
         flag = 0
@@ -95,9 +96,11 @@ def sign_in(token):
     response = session.post(url=url, headers=header, data=data)
     if response.json()['status'] == 1:
         msg = '打卡成功'
+        print(msg)
         Wxpush(msg)
     else:
         msg = parse.quote_plus(response.json()['msg'])
+        print(msg)
         Wxpush(msg)
 
 
@@ -145,9 +148,9 @@ def sign_in_evening(token):
     data = json.dumps(data)
     response = session.post(url=url, headers=header, data=data)
     if response.json()['status'] == 1:
-        print("success!")
+        print("签到成功")
     else:
-        print("fail!")
+        print("签到失败")
     msg = parse.quote_plus(response.json()['msg'])
     Wxpush(msg)
 
