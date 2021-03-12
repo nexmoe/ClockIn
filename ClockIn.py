@@ -159,7 +159,7 @@ if __name__ == "__main__":
     time.sleep(3)
     now_H = int(time.strftime("%H"))
     if flag:
-        if 14 <= now_H <= 15:  # 世界协调时间
+        if 13 <= now_H <= 14: # 世界协调时间
             sign_in_evening(token)
         else:
             sign_in(token)
