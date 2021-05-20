@@ -68,41 +68,6 @@ def login():
     return response.json()['data']
 
 
-# 每日健康打卡模块
-def sign_in(token):
-    url = 'http://zua.zhidiantianxia.cn/api/study/health/apply'
-    header = {
-        'axy-phone': phone,
-        'axy-token': token,
-        'Content-Type': 'application/json',
-        'user-agent': 'TAS-AN00(Android/5.1.1) (com.axy.zhidian/1.5.5) Weex/0.18.0 720x1280',
-        'Host': 'zua.zhidiantianxia.cn',
-        'Connection': 'Keep-Alive',
-        'Accept-Encoding': 'gzip',
-        'Content-Length': '536'
-    }
-    content = {"location": {"address": address, "lat": lat, "lng": lng, "code": "1"}, "temperature": "36.6",
-                        "health": "是", "observation": "否", "confirmed": "否", "haveCOVIDInPlaceOfAbode": "否",
-                        "goToHuiBei": "否", "contactIllPerson": "否", "haveYouEverBeenAbroad": "否",
-                        "familyPeopleNum": "4", "isFamilyHealth": "否", "isFamilyColdChain": "否", "isFamilyStatus": "否",
-                        "familyPeopleIsAway": "否", "hasYourFamilyEverBeenAbroad": "否", "leave": "否",
-                        "isYesterdayMove": "否", "admission": "是", "help": "", "nowLocation": district}
-    data = {"health": 0,
-            "student": 1,
-            "templateId": 2,
-            "content": str(content)}
-    data = json.dumps(data)
-    response = session.post(url=url, headers=header, data=data)
-    if response.json()['status'] == 1:
-        msg = '打卡成功'
-        print(msg)
-        Wxpush(msg)
-    else:
-        msg = parse.quote_plus(response.json()['msg'])
-        print(msg)
-        Wxpush(msg)
-
-
 # 获取每日宿舍签到的signInId模块
 def get_signInId(token):
     url = 'http://zua.zhidiantianxia.cn/applets/signin/my'
